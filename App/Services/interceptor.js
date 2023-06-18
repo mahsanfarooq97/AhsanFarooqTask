@@ -2,7 +2,7 @@ import axios from 'axios';
 import { findEnviornment, getDataFromAsync } from '../Utils/utils';
 import Constants from '../Constants/Constants';
 import WebApis from './WebApis';
-
+//Implemented For Token refresh , as we dont have any Refresh Token API so i'm just adding here a Mock Function Only
 export const refreshTokenMain = async () => {
     try {
         // let envMode =  findEnviornment();
@@ -27,11 +27,8 @@ export const refreshTokenMain = async () => {
         // } else {
         //     return false;
         // }
-        let res = new WebApis().refreshToken();
-        if (res?.data?.success) {
 
-        }
-        return false
+        // return false
     } catch (e) {
         return false;
     }
