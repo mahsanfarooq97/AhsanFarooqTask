@@ -1,7 +1,8 @@
-import { API_KEY } from "../Constants/Constants";
+
 import { findEnviornment } from "../Utils/utils";
 import { intercepter } from "./interceptor";
-
+const API_KEY = process.env.API_KEY;
+console.log('API KEY',API_KEY)
 export default class WebApis {
     async login(params = null) {
         let envMode = findEnviornment();
