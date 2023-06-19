@@ -12,6 +12,9 @@ $ npm install
 // You need to set API_KEY of TOP News API and Search API  in the .env file 
 // You need to set IP Address in DEV_URL.js file to connect App to local backend
 // Your Laptop and Mobile Real Device should be connected to the same internet server
+// Credentials For Login
+// username farooq@gmail.com
+// password 123
 // for ios
 cd ios
 pod install
