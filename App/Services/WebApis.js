@@ -13,11 +13,6 @@ export default class WebApis {
         let url = envMode.authUrl + `auth/register`;
         return await intercepter(url, 'POST', false, params);
     }
-    async refreshToken() {
-        let envMode = findEnviornment();
-        let url = envMode.authUrl + `auth/refresh`;
-        return await intercepter(url, 'GET', false);
-    }
     async getTopStories(category) {
         let envMode = findEnviornment();
         let url = envMode.topStoriesUrl+`${category}.json?api-key=${API_KEY}`;

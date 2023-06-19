@@ -10,6 +10,7 @@ const SignIn = (body) => async dispatch => {
     try {
         ToggleLoader(true)
         let Res = await new WebApis().login(body)
+        console.log('Res',Res)
         if (Res?.data?.access_token !== undefined && Res?.data?.access_token !== null && Res?.data?.access_token !== '') {
             success(Res?.data?.access_token)
         } else {
@@ -38,11 +39,16 @@ const RegisterUser = (body) => async dispatch => {
     try {
         ToggleLoader(true)
         let Res = await new WebApis().register(body)
+        console.log('Res',Res)
         if (Res?.data?.access_token !== undefined && Res?.data?.access_token !== null && Res?.data?.access_token !== '') {
             Alert.alert('User Registered.')
             success(Res?.data?.access_token)
         } else if (Res?.data?.status === 401 && Res?.data?.message === 'Email and Password already exist') {
             failed(Res?.data?.message)
+        }
+        else{
+            Alert.alert('Something went wrong Please Try Again')
+            failed()
         }
     } catch (e) {
         failed()

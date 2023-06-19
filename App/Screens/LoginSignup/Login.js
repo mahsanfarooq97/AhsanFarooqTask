@@ -21,8 +21,8 @@ const Login = () => {
         }
         if (check) {
             let body = {
-                email: username,
-                password
+                email: username?.replace(/\s/g, ''),
+                password:password?.replace(/\s/g, '')
             }
             dispatch(SignIn(body))
         }

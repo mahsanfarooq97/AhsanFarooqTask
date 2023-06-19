@@ -6,8 +6,12 @@ Implemented Features: login,register,LogOut, Categorized Top New, Details of Top
 
 ## Install
 
+
 ```bash
 $ npm install
+// You need to set API_KEY of TOP News API and Search API 
+// You need to set IP Address in DEV_URL.js file to connect App to local backend
+// Your Laptop and Mobile Real Device should be connected to the same internet server
 // for ios
 cd ios
 pod install

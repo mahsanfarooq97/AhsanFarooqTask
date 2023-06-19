@@ -39,37 +39,46 @@ const ArticleSearch = ({ navigation }) => {
                 placeholder={'Search'}
                 onPress={(item) => onSearch(item)}
             />
-            <FlatList
-                onEndReachedThreshold={0.5}
-                scrollEventThrottle={150}
-                onEndReached={onEndReachFunc}
-                ListFooterComponent={() => {
-                    return (
-                        <View
-                            style={{
-                                marginTop: responsiveHeight(1),
-                                height: responsiveHeight(10),
-                            }}>
-                            {!lastpost && loadingmore && !loader && (
-                                <ActivityIndicator size={'small'} color={Colors.dark} />
-                            )}
-                        </View>
-                    );
-                }}
-                style={{ marginTop: responsiveHeight(6) }}
-                data={list}
-                keyExtractor={item => item?._id}
-                renderItem={({ item, index }) =>
-                    <TouchableOpacity onPress={() => {
-                        console.log('item here', item)
-                        navigation?.navigate('ArticleDetails', {
-                            item
-                        })
-                    }} style={styles.Touchable} key={item?._id} >
-                        <Text style={styles.section} >{item?.abstract}</Text>
-                    </TouchableOpacity>
-                }
-            />
+            {
+                list?.length === 0 ?
+                    <View style={styles.notFoundView} >
+                        <Text style={styles.notFound} >{'Not Found'}</Text>
+                    </View>
+                    :
+                    <FlatList
+                        onEndReachedThreshold={0.5}
+                        scrollEventThrottle={150}
+                        onEndReached={onEndReachFunc}
+                        ListFooterComponent={() => {
+                            return (
+                                <View
+                                    style={{
+                                        marginTop: responsiveHeight(1),
+                                        height: responsiveHeight(10),
+                                    }}>
+                                    {!lastpost && loadingmore && !loader && (
+                                        <ActivityIndicator size={'small'} color={Colors.dark} />
+                                    )}
+                                </View>
+                            );
+                        }}
+                        style={{ marginTop: responsiveHeight(6) }}
+                        data={list}
+                        keyExtractor={item => item?._id}
+                        renderItem={({ item, index }) =>
+                            <TouchableOpacity onPress={() => {
+                                console.log('item here', item)
+                                navigation?.navigate('ArticleDetails', {
+                                    item
+                                })
+                            }} style={styles.Touchable} key={item?._id} >
+                                <Text style={styles.section} >{item?.abstract}</Text>
+                            </TouchableOpacity>
+                        }
+                    />
+
+            }
+
 
         </SafeAreaView>
 
@@ -105,5 +114,15 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: Colors.light
 
+    },
+    notFoundView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    notFoundText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: Colors.dark
     }
 })
