@@ -6,7 +6,7 @@ import LoginSignup from '../Screens/LoginSignup/LoginSignup';
 import { Provider, useSelector } from 'react-redux';
 import { store } from '../Redux/Store/Store';
 import Loader from '../Components/Loader/Loader';
-import { Login, Logout, getDataFromAsync } from '../Utils/utils';
+import { Login, Logout, getDataFromAsync, retrieveFromSecureVallet } from '../Utils/utils';
 import Constants from '../Constants/Constants';
 import Home from '../Screens/Home/Home';
 import Splash from '../Screens/Splash/Splash';
@@ -56,7 +56,8 @@ const MainRouter = () => {
 }
 const Router = () => {
     const checkIfUserLoggedin = async () => {
-        let isUserLoggedIn = await getDataFromAsync(Constants.ACCESS_TOKEN);
+        let isUserLoggedIn = await retrieveFromSecureVallet(Constants.ACCESS_TOKEN);
+        
         if (
             isUserLoggedIn !== null &&
             isUserLoggedIn !== undefined &&

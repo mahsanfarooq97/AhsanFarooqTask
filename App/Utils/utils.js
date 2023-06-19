@@ -3,6 +3,7 @@ import { store } from "../Redux/Store/Store";
 import { LOGIN_USER, TOGGLE_AUTH_LOADER, TOGGLE_LOADER } from "../Redux/Types/Types";
 import DEV_URLS from "../URLS/DEV_URLS";
 import AsyncStorage from '@react-native-async-storage/async-storage'; //latest
+import EncryptedStorage from 'react-native-encrypted-storage';
 export const findEnviornment = () => {
     let live = ''
     let staging = '';
@@ -16,8 +17,22 @@ export const getDataFromAsync = async (key) => {
         userId = await AsyncStorage.getItem(key);
         return userId;
     } catch (error) {
-       
+
     }
+};
+export const retrieveFromSecureVallet = async (key) => {
+    try {
+        const session = await EncryptedStorage.getItem(key);
+        return session
+    } catch (error) {
+        // There was an error on the native side
+    }
+}
+export const saveDataInSecureVallet = async (key, value) => {
+    await EncryptedStorage.setItem(key, value);
+};
+export const removeDataFromSecureVallet = async (key) => {
+    await EncryptedStorage.removeItem(key);
 };
 export const saveDataInAsync = async (key, value) => {
     await AsyncStorage.setItem(key, value);
@@ -36,11 +51,12 @@ export const Logout = async () => {
     store.dispatch({
         type: LOGIN_USER, payload: null
     })
-    await removeDataFromAsync(Constants.ACCESS_TOKEN)
+    await removeDataFromSecureVallet(Constants.ACCESS_TOKEN)
 }
 export const ToggleLoader = (payload) => {
     store.dispatch({ type: TOGGLE_LOADER, payload })
 }
+
 export const loadSearchedItems = async () => {
     try {
         const searchedItemsJson = await getDataFromAsync(Constants.LAST_5_SEARCHED)

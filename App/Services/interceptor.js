@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { findEnviornment, getDataFromAsync } from '../Utils/utils';
+import { findEnviornment, getDataFromAsync, retrieveFromSecureVallet } from '../Utils/utils';
 import Constants from '../Constants/Constants';
 import WebApis from './WebApis';
 //Implemented For Token refresh , as we dont have any Refresh Token API so i'm just adding here a Mock Function Only
@@ -37,7 +37,7 @@ export const refreshTokenMain = async () => {
 export const intercepter = async (url, method, token, body = {}) => {
     let headers = { 'Content-Type': 'application/json' };
     if (token) {
-        let API_TOKEN = await getDataFromAsync(Constants.ACCESS_TOKEN);
+        let API_TOKEN = await retrieveFromSecureVallet(Constants.ACCESS_TOKEN);
         headers.Authorization = 'Bearer ' + API_TOKEN;
     }
     let structure = {

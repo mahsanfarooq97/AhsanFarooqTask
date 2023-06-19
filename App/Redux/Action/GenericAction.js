@@ -3,7 +3,7 @@ import { store } from "../Store/Store";
 
 const Constants = require("../../Constants/Constants");
 const { default: WebApis } = require("../../Services/WebApis");
-const { ToggleLoader, saveDataInAsync, removeDataFromAsync } = require("../../Utils/utils");
+const { ToggleLoader,  saveDataInSecureVallet, removeDataFromSecureVallet } = require("../../Utils/utils");
 const { LOGIN_USER, GET_TOP_STORIES, LOAD_MORE_ARTICLES, GET_ARTICLE_SEARCH } = require("../Types/Types");
 
 const SignIn = (body) => async dispatch => {
@@ -20,7 +20,7 @@ const SignIn = (body) => async dispatch => {
     }
     async function success(token) {
         ToggleLoader(false)
-        await saveDataInAsync(Constants.ACCESS_TOKEN, token)
+        await saveDataInSecureVallet(Constants.ACCESS_TOKEN, token)
         dispatch({
             type: LOGIN_USER, payload: true
         })
@@ -28,7 +28,7 @@ const SignIn = (body) => async dispatch => {
     async function failed() {
         Alert.alert('Invalid credentials')
         ToggleLoader(false)
-        await removeDataFromAsync(Constants.ACCESS_TOKEN)
+        await removeDataFromSecureVallet(Constants.ACCESS_TOKEN)
         dispatch({
             type: LOGIN_USER, payload: null
         })
@@ -49,7 +49,7 @@ const RegisterUser = (body) => async dispatch => {
     }
     async function success(token) {
         ToggleLoader(false)
-        await saveDataInAsync(Constants.ACCESS_TOKEN, token)
+        await saveDataInSecureVallet(Constants.ACCESS_TOKEN, token)
         dispatch({
             type: LOGIN_USER, payload: true
         })
